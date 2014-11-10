@@ -22,15 +22,19 @@ def init_figure():
     scatter=axes.scatter(boids[0],boids[1])
     return figure, scatter
 
+# Fly towards the middle
+def move_to_middle(velocs,coords,step_size):
+    for i in range(len(coords)):
+        for j in range(len(coords)):
+            velocs[i] += (coords[j]-coords[i])*step_size/len(coords)
+    return velocs
 
 def update_boids(boids):
     xs,ys,xvs,yvs=boids
     step_size = 0.01
 	# Fly towards the middle
-    for i in range(len(xs)):
-        for j in range(len(xs)):
-            yvs[i]=yvs[i]+(ys[j]-ys[i])*step_size/len(xs)
-            xvs[i]=xvs[i]+(xs[j]-xs[i])*step_size/len(xs)
+    xvs = move_to_middle(xvs,xs,step_size)
+    yvs = move_to_middle(yvs,ys,step_size)
 	# Fly away from nearby boids
     for i in range(len(xs)):
         for j in range(len(xs)):
