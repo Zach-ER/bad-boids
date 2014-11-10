@@ -32,3 +32,7 @@ def test_move_to_middle():
     step_size = 0.1
     xvs= b.move_to_middle(xvs,xs,step_size)
     assert xvs == [0.0,1.0]
+
+def test_init_boids():
+    bds = b.initialise_boids()
+    assert len(bds[0]) == len(bds[1]) == len(bds[2]) == len(bds[3])
