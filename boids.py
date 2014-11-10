@@ -38,6 +38,7 @@ def dont_crash(xs,ys,xvs,yvs):
                 yvs[i]=yvs[i]+(ys[i]-ys[j])
     return xvs, yvs
 
+# Try to match speed with nearby boids
 def sync_speed(xs,ys,xvs,yvs):
     for i in range(len(xs)):
         for j in range(len(xs)):
@@ -45,6 +46,13 @@ def sync_speed(xs,ys,xvs,yvs):
                 xvs[i]=xvs[i]+(xvs[j]-xvs[i])*0.125/len(xs)
                 yvs[i]=yvs[i]+(yvs[j]-yvs[i])*0.125/len(xs)
     return xvs, yvs
+
+# move the boids
+def update_positions(xs,ys,xvs,yvs):
+    for i in range(len(xs)):
+        xs[i]=xs[i]+xvs[i]
+        ys[i]=ys[i]+yvs[i]
+    return xs,ys
 
 def update_boids(boids):
     xs,ys,xvs,yvs=boids
@@ -57,9 +65,7 @@ def update_boids(boids):
     # Try to match speed with nearby boids
     xvs,yvs = sync_speed(xs,ys,xvs,yvs)
 	# Move according to velocities
-    for i in range(len(xs)):
-        xs[i]=xs[i]+xvs[i]
-        ys[i]=ys[i]+yvs[i]
+    xs,ys = update_positions(xs,ys,xvs,yvs)
 
 
 boids = initialise_boids()
