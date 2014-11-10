@@ -21,3 +21,8 @@ def test_update_positions():
     xvs,yvs,xs,ys  = [[0,1],[2,3],[0,0],[1,2]]
     xs,ys= b.update_positions(xs,ys,xvs,yvs)
     assert xs == [0,1] and ys == [3,5]
+
+def test_sync_speed():
+    xvs,yvs,xs,ys  = [[0,1],[2,3],[0,0],[1,2]]
+    xs,ys= b.sync_speed(xs,ys,xvs,yvs)
+    assert xvs == [0.0625, 0.94140625] and yvs == [2.0625, 2.94140625]
