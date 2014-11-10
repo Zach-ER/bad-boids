@@ -34,8 +34,8 @@ def dont_crash(xs,ys,xvs,yvs):
     for i in range(len(xs)):
         for j in range(len(xs)):
             if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 100:
-                xvs[i]=xvs[i]+(xs[i]-xs[j])
-                yvs[i]=yvs[i]+(ys[i]-ys[j])
+                xvs[i]+=+(xs[i]-xs[j])
+                yvs[i]+=+(ys[i]-ys[j])
     return xvs, yvs
 
 # Try to match speed with nearby boids
@@ -43,8 +43,8 @@ def sync_speed(xs,ys,xvs,yvs):
     for i in range(len(xs)):
         for j in range(len(xs)):
             if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 10000:
-                xvs[i]=xvs[i]+(xvs[j]-xvs[i])*0.125/len(xs)
-                yvs[i]=yvs[i]+(yvs[j]-yvs[i])*0.125/len(xs)
+                xvs[i] += (xvs[j]-xvs[i])*0.125/len(xs)
+                yvs[i] += (yvs[j]-yvs[i])*0.125/len(xs)
     return xvs, yvs
 
 # move the boids
