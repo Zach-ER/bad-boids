@@ -26,3 +26,9 @@ def test_sync_speed():
     xvs,yvs,xs,ys  = [[0,1],[2,3],[0,0],[1,2]]
     xs,ys= b.sync_speed(xs,ys,xvs,yvs)
     assert xvs == [0.0625, 0.94140625] and yvs == [2.0625, 2.94140625]
+
+def test_move_to_middle():
+    xvs,xs  = [[0,1],[0,0]]
+    step_size = 0.1
+    xvs= b.move_to_middle(xvs,xs,step_size)
+    assert xvs == [0.0,1.0]
