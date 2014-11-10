@@ -29,6 +29,15 @@ def move_to_middle(velocs,coords,step_size):
             velocs[i] += (coords[j]-coords[i])*step_size/len(coords)
     return velocs
 
+# fly away from nearby boids
+def dont_crash(xs,ys,xvs,yvs):
+    for i in range(len(xs)):
+        for j in range(len(xs)):
+            if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 100:
+                xvs[i]=xvs[i]+(xs[i]-xs[j])
+                yvs[i]=yvs[i]+(ys[i]-ys[j])
+    return xvs, yvs
+
 def update_boids(boids):
     xs,ys,xvs,yvs=boids
     step_size = 0.01
@@ -36,12 +45,8 @@ def update_boids(boids):
     xvs = move_to_middle(xvs,xs,step_size)
     yvs = move_to_middle(yvs,ys,step_size)
 	# Fly away from nearby boids
-    for i in range(len(xs)):
-        for j in range(len(xs)):
-            if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 100:
-                xvs[i]=xvs[i]+(xs[i]-xs[j])
-                yvs[i]=yvs[i]+(ys[i]-ys[j])
-	# Try to match speed with nearby boids
+    xvs,yvs = dont_crash(xs,ys,xvs,yvs)
+    # Try to match speed with nearby boids
     for i in range(len(xs)):
         for j in range(len(xs)):
             if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 10000:
