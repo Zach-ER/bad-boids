@@ -16,6 +16,12 @@ def initialise_boids():
     boid_y_velocities=[random.uniform(-20.0,20.0) for x in range(50)]
     return (boids_x,boids_y,boid_x_velocities,boid_y_velocities)
 
+def init_figure():
+    figure=plt.figure()
+    axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
+    scatter=axes.scatter(boids[0],boids[1])
+    return figure, scatter
+
 
 def update_boids(boids):
 	xs,ys,xvs,yvs=boids
@@ -45,10 +51,7 @@ def update_boids(boids):
 
 
 boids = initialise_boids()
-figure=plt.figure()
-axes=plt.axes(xlim=(-500,1500), ylim=(-500,1500))
-scatter=axes.scatter(boids[0],boids[1])
-
+figure,scatter = init_figure()
 
 def animate(frame):
    update_boids(boids)
