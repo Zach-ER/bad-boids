@@ -38,6 +38,14 @@ def dont_crash(xs,ys,xvs,yvs):
                 yvs[i]=yvs[i]+(ys[i]-ys[j])
     return xvs, yvs
 
+def sync_speed(xs,ys,xvs,yvs):
+    for i in range(len(xs)):
+        for j in range(len(xs)):
+            if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 10000:
+                xvs[i]=xvs[i]+(xvs[j]-xvs[i])*0.125/len(xs)
+                yvs[i]=yvs[i]+(yvs[j]-yvs[i])*0.125/len(xs)
+    return xvs, yvs
+
 def update_boids(boids):
     xs,ys,xvs,yvs=boids
     step_size = 0.01
@@ -47,11 +55,7 @@ def update_boids(boids):
 	# Fly away from nearby boids
     xvs,yvs = dont_crash(xs,ys,xvs,yvs)
     # Try to match speed with nearby boids
-    for i in range(len(xs)):
-        for j in range(len(xs)):
-            if (xs[j]-xs[i])**2 + (ys[j]-ys[i])**2 < 10000:
-                xvs[i]=xvs[i]+(xvs[j]-xvs[i])*0.125/len(xs)
-                yvs[i]=yvs[i]+(yvs[j]-yvs[i])*0.125/len(xs)
+    xvs,yvs = sync_speed(xs,ys,xvs,yvs)
 	# Move according to velocities
     for i in range(len(xs)):
         xs[i]=xs[i]+xvs[i]
