@@ -16,3 +16,8 @@ def test_dont_crash():
     xvs,yvs,xs,ys  = [[0,1],[2,3],[0,0],[1,2]]
     xs,ys= b.dont_crash(xs,ys,xvs,yvs)
     assert xs == [0,1] and ys == [1,4]
+
+def test_update_positions():
+    xvs,yvs,xs,ys  = [[0,1],[2,3],[0,0],[1,2]]
+    xs,ys= b.update_positions(xs,ys,xvs,yvs)
+    assert xs == [0,1] and ys == [3,5]
